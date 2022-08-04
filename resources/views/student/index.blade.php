@@ -8,7 +8,7 @@
 
 @section('script')
     <script>
-        window.addEventListener('close-modal', event => {
+        window.addEventListener('closeModal', (event) => {
             $('#exampleModal').modal('hide');
         })
     </script>

@@ -19,7 +19,45 @@
                         </button>
                     </div>
                     <div class="card-body">
-                        Table of Contents
+                        <table class="table table-borderd table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Course</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($students as $student)
+                                    <tr>
+                                        <td>{{ $student->id }}</td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ $student->email }}</td>
+                                        <td>{{ $student->course }}</td>
+                                        <td>
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#updateStudentModal"
+                                                wire:click="editStudent({{ $student->id }})" class="btn btn-primary">
+                                                Edit
+                                            </button>
+                                            <button type="button" data-bs-toggle="modal"
+                                                data-bs-target="#deleteStudentModal"
+                                                wire:click="deleteStudent({{ $student->id }})"
+                                                class="btn btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="5">No Record Found</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        <div>
+                            {{ $students->links() }}
+                        </div>
                     </div>
                 </div>
             </div>

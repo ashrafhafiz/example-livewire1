@@ -3,12 +3,16 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Student extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $name;
     public $email;
     public $course;
+    public $search = '';
 
     // protected function rules()
     // {
@@ -25,11 +29,6 @@ class Student extends Component
         'course' => 'required'
     ];
 
-    public function render()
-    {
-        return view('livewire.student');
-    }
-
     public function updated($fields)
     {
         $this->validateOnly($fields);
@@ -45,6 +44,12 @@ class Student extends Component
         ]);
         $this->reset();
         session()->flash('success', 'Student record created successfuly');
-        $this->dispatchBrowserEvent('close-modal');
+        $this->dispatchBrowserEvent('closeModal');
+    }
+
+    public function render()
+    {
+        $students = \App\Models\Student::where('name', 'like', '%' . $this->search . '%')->orderBy('id', 'DESC')->paginate(3);
+        return view('livewire.student', ['students' => $students]);
     }
 }

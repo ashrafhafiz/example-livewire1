@@ -82,10 +82,10 @@
             @yield('content')
         </main>
     </div>
-    <script src="{{ asset('assets/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/jquery-3.6.0.min.js') }}"></script>
-    @yield('script')
+    <script src="{{ asset('assets/bootstrap.bundle.min.js') }}"></script>
     @livewireScripts
+    @yield('script')
 </body>
 
 </html>
